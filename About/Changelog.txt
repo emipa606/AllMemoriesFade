@@ -1,0 +1,4 @@
+# Changelog for AllMemoriesFade
+
+1.3.0 - First publish
+
