@@ -17,6 +17,8 @@ This will affect all memories, bad and good, with the result that pawns should g
 
 Can be added/removed from saved with no issues.
 
+- Added settings for changing the base mood-values for all memories. Setting it very high might make your colonist have extreme reactions.
+
 [h2]Performance[/h2]
 The feature was actually added in 1.3 vanilla code as an optional property for memories. All this mod does is to make all memories use it. As such it should not cause any noticeable performance issues.
 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Mlie;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -74,6 +76,22 @@ internal class AllMemoriesFadeMod : Mod
             Math.Round(10 * Settings.MemoryMoodOffset), Math.Round(-20f * Settings.MemoryMoodOffset),
             Math.Round(40f * Settings.MemoryMoodOffset), Math.Round(-80f * Settings.MemoryMoodOffset)));
 
+        listing_Standard.Gap();
+
+        listing_Standard.Label("AMF.DurationExclusion".Translate(), -1,
+            "AMF.DurationExclusion.Tooltip".Translate());
+        Widgets.FloatRange(listing_Standard.GetRect(20f), SettingsCategory().GetHashCode(), ref Settings.DurationRange,
+            0, AllMemoriesFade.MaxDuration);
+        var currentThougths = AllMemoriesFade.GetCurrentAffectedThoughts();
+        var lowThoughts = string.Join("\n", currentThougths.Where(def =>
+                def.durationDays == currentThougths.Min(thoughtDef => thoughtDef.durationDays))
+            .Select(def => $"{def.defName}: {def.DurationTicks.ToStringTicksToDays()}"));
+        var highThoughts = string.Join("\n", currentThougths.Where(def =>
+                def.durationDays == currentThougths.Max(thoughtDef => thoughtDef.durationDays))
+            .Select(def => $"{def.defName}: {def.DurationTicks.ToStringTicksToDays()}"));
+
+        listing_Standard.Label("AMF.IncludesThoughts".Translate(currentThougths.Count), -1f,
+            $"{lowThoughts}\n...\n{highThoughts}");
         listing_Standard.Gap();
         if (currentVersion != null)
         {
