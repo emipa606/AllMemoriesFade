@@ -3,9 +3,21 @@
 ![Image](https://i.imgur.com/buuPQel.png)
 
 
-Will force all momories fade out instead of just ending.
+Will force all memories fade out instead of just ending.
 For example instead of a divorce having -20 mood debuff for half a year and then vanish it will tick down over time.
 This will affect all memories, bad and good, with the result that pawns should generally be more emotionally stable.
+
+Can be added/removed from saved with no issues.
+
+## Performance
+
+The feature was actually added in 1.3 vanilla code as an optional property for memories. All this mod does is to make all memories use it. As such it should not cause any noticeable performance issues.
+
+## Expanded description via The Blind One
+
+”All (timed) memories that give mood buffs or debuffs will fade over time proportional to how much time is left. Really bad mood debuffs or strong mood buffs won't disappear out of the blue once the timer is up, they will slowly transition and fade out of their minds. A pawn going through drug withdrawal will feel only half as bad halfway through the process as an example. 
+
+This also applies to things like breakups and divorces which can be devastating if they happen with -20 mood debuffs for 2 to 3 years straight. While they won't recover over night, you can be sure that they will slowly get there and reduce the mental strain on them as time passes.”
 
 ![Image](https://i.imgur.com/O0IIlYj.png)
 
