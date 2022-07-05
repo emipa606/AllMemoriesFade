@@ -2,14 +2,17 @@
 <LanguageData>
   <AMF.MoodOffset>Mood offset for timed thoughts: {0}</AMF.MoodOffset>
   <AMF.MoodOffset.Tooltip>Will multiply any mood from timed thoughts with the defined value.</AMF.MoodOffset.Tooltip>
+  <AMF.LengthOffset>Length offset for timed thoughts: {0}</AMF.LengthOffset>
+  <AMF.LengthOffset.Tooltip>Will multiply any length from timed thoughts with the defined value.</AMF.LengthOffset.Tooltip>
   <AMF.DurationExclusion>Mood durations (days) to include:</AMF.DurationExclusion>
   <AMF.DurationExclusion.Tooltip>Will only apply to thoughts with a duration within the selected span.</AMF.DurationExclusion.Tooltip>
   <AMF.IncludesThoughts>Affects {0} thoughts</AMF.IncludesThoughts>
+  <AMF.Reset>Reset</AMF.Reset>
   <AMF.CurrentModVersion>Installed mod-version: {0}</AMF.CurrentModVersion>
   <AMF.Example>Examples
 Ate without table: {0}
 Initial optimism: {1}
 Divorce: {2}
-Honeymood phase: {3}
+Honeymoon phase: {3}
 Killed my mother: {4}</AMF.Example>
 </LanguageData>

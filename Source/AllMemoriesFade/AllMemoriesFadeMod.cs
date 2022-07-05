@@ -77,6 +77,18 @@ internal class AllMemoriesFadeMod : Mod
             Math.Round(40f * Settings.MemoryMoodOffset), Math.Round(-80f * Settings.MemoryMoodOffset)));
 
         listing_Standard.Gap();
+        var originalLength = Settings.MemoryLengthOffset;
+        listing_Standard.Label("AMF.LengthOffset".Translate(Settings.MemoryLengthOffset.ToStringPercent()), -1,
+            "AMF.LengthOffset.Tooltip".Translate());
+        Settings.MemoryLengthOffset = listing_Standard.Slider(Settings.MemoryLengthOffset, 0f, 2f);
+        listing_Standard.Label("AMF.Example".Translate(GetTimeFromLength(1f), GetTimeFromLength(8f),
+            GetTimeFromLength(180f), GetTimeFromLength(30f), GetTimeFromLength(120f)));
+        if (Settings.MemoryLengthOffset != originalLength)
+        {
+            AllMemoriesFade.UpdateLengthValues();
+        }
+
+        listing_Standard.Gap();
 
         listing_Standard.Label("AMF.DurationExclusion".Translate(), -1,
             "AMF.DurationExclusion.Tooltip".Translate());
@@ -93,6 +105,12 @@ internal class AllMemoriesFadeMod : Mod
         listing_Standard.Label("AMF.IncludesThoughts".Translate(currentThougths.Count), -1f,
             $"{lowThoughts}\n...\n{highThoughts}");
         listing_Standard.Gap();
+        if (listing_Standard.ButtonText("AMF.Reset".Translate()))
+        {
+            settings.ResetSettings();
+        }
+
+        listing_Standard.Gap();
         if (currentVersion != null)
         {
             listing_Standard.Gap();
@@ -104,9 +122,16 @@ internal class AllMemoriesFadeMod : Mod
         listing_Standard.End();
     }
 
+    private string GetTimeFromLength(float timeInDays)
+    {
+        return ((int)Math.Round(Settings.MemoryLengthOffset * timeInDays * GenDate.TicksPerDay))
+            .ToStringTicksToPeriod();
+    }
+
     public override void WriteSettings()
     {
         base.WriteSettings();
-        AllMemoriesFade.UpdateMoodEffects();
+        AllMemoriesFade.UpdateEffectValues();
+        AllMemoriesFade.UpdateLengthValues();
     }
 }

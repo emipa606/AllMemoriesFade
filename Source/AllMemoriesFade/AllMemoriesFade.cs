@@ -9,9 +9,10 @@ namespace AllMemoriesFade;
 public class AllMemoriesFade
 {
     public static readonly Dictionary<string, List<float>> VanillaMoodValues;
+    public static readonly Dictionary<string, float> VanillaLengthValues;
     public static readonly Dictionary<string, bool> VanillaLerpValues;
     public static readonly List<ThoughtDef> AllMoodThoughts;
-    public static readonly float MaxDuration;
+    public static float MaxDuration;
 
     static AllMemoriesFade()
     {
@@ -20,9 +21,11 @@ public class AllMemoriesFade
 
         VanillaMoodValues = new Dictionary<string, List<float>>();
         VanillaLerpValues = new Dictionary<string, bool>();
+        VanillaLengthValues = new Dictionary<string, float>();
         foreach (var thoughtDef in AllMoodThoughts)
         {
             VanillaLerpValues[thoughtDef.defName] = thoughtDef.lerpMoodToZero;
+            VanillaLengthValues[thoughtDef.defName] = thoughtDef.durationDays;
             VanillaMoodValues[thoughtDef.defName] = new List<float>();
             if (thoughtDef.stages == null || thoughtDef.stages.Count == 0)
             {
@@ -41,11 +44,12 @@ public class AllMemoriesFade
             }
         }
 
-        UpdateAffectedThoughts();
-        UpdateMoodEffects();
+        UpdateLerpValues();
+        UpdateLengthValues();
+        UpdateEffectValues();
     }
 
-    public static void UpdateAffectedThoughts()
+    public static void UpdateLerpValues()
     {
         var currentAffectedThoughts = GetCurrentAffectedThoughts();
         foreach (var thoughtDef in AllMoodThoughts)
@@ -60,7 +64,31 @@ public class AllMemoriesFade
         }
     }
 
-    public static void UpdateMoodEffects()
+    public static void UpdateLengthValues()
+    {
+        var currentAffectedThoughts = GetCurrentAffectedThoughts();
+        if (AllMemoriesFadeMod.instance.Settings.MemoryLengthOffset != 1f)
+        {
+            Log.Message(
+                $"[AllMemoriesFade]: Changed {currentAffectedThoughts.Count} length-offsets by {AllMemoriesFadeMod.instance.Settings.MemoryLengthOffset.ToStringPercent()}");
+        }
+
+        foreach (var thoughtDef in AllMoodThoughts)
+        {
+            if (currentAffectedThoughts.Contains(thoughtDef))
+            {
+                thoughtDef.durationDays = VanillaLengthValues[thoughtDef.defName] *
+                                          AllMemoriesFadeMod.instance.Settings.MemoryLengthOffset;
+                continue;
+            }
+
+            thoughtDef.durationDays = VanillaLengthValues[thoughtDef.defName];
+        }
+
+        MaxDuration = AllMoodThoughts.Max(def => def.durationDays) * 1.1f;
+    }
+
+    public static void UpdateEffectValues()
     {
         var currentAffectedThoughts = GetCurrentAffectedThoughts();
         if (AllMemoriesFadeMod.instance.Settings.MemoryMoodOffset != 1f)

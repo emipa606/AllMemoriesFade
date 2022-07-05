@@ -15,9 +15,9 @@ Will force all memories fade out instead of just ending.
 For example instead of a divorce having -20 mood debuff for half a year and then vanish it will tick down over time.
 This will affect all memories, bad and good, with the result that pawns should generally be more emotionally stable.
 
-Can be added/removed from saved with no issues.
-
 - Added settings for changing the base mood-values for all memories. Setting it very high might make your colonist have extreme reactions.
+- Added settings for changing the duration of timed thoughts.
+- Added setting for excluding memories of specific durations
 
 [h2]Performance[/h2]
 The feature was actually added in 1.3 vanilla code as an optional property for memories. All this mod does is to make all memories use it. As such it should not cause any noticeable performance issues.
@@ -31,7 +31,11 @@ This also applies to things like breakups and divorces which can be devastating 
 	[tr]
 		[td][url=https://invite.gg/Mlie][img]https://i.imgur.com/zdzzBrc.png[/img][/url][/td]
 		[td][url=https://github.com/emipa606/AllMemoriesFade][img]https://i.imgur.com/kTkpTOE.png[/img][/url][/td]
-	[/tr]
+    [/tr]
+    [tr]
+        [td][img]https://i.imgur.com/WjDSfUn.png[/img][/td]
+        [td][img]https://i.imgur.com/h5VwTNL.png[/img][/td]
+    [/tr]
 [/table]
 
 [img]https://i.imgur.com/O0IIlYj.png[/img]
@@ -48,5 +52,6 @@ Since modding is just a hobby for me I expect no donations to keep modding. If y
 [*] Do not report errors by making a discussion-thread, I get no notification of that.
 [*] If you have the solution for a problem, please post it to the GitHub repository.
 [/list]
+
 </description>
 </ModMetaData>

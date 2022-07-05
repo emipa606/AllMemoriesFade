@@ -7,9 +7,9 @@ Will force all memories fade out instead of just ending.
 For example instead of a divorce having -20 mood debuff for half a year and then vanish it will tick down over time.
 This will affect all memories, bad and good, with the result that pawns should generally be more emotionally stable.
 
-Can be added/removed from saved with no issues.
-
 - Added settings for changing the base mood-values for all memories. Setting it very high might make your colonist have extreme reactions.
+- Added settings for changing the duration of timed thoughts.
+- Added setting for excluding memories of specific durations
 
 ## Performance
 
@@ -38,6 +38,7 @@ https://ko-fi.com/G2G55DDYD]![Image](https://i.imgur.com/Utx6OIH.png)
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
+
 
 
 
