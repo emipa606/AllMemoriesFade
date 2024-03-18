@@ -30,7 +30,7 @@ internal class AllMemoriesFadeMod : Mod
     {
         instance = this;
         currentVersion =
-            VersionFromManifest.GetVersionFromModMetaData(ModLister.GetActiveModWithIdentifier("Mlie.AllMemoriesFade"));
+            VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ internal class AllMemoriesFadeMod : Mod
 
         listing_Standard.Label("AMF.DurationExclusion".Translate(), -1,
             "AMF.DurationExclusion.Tooltip".Translate());
-        Widgets.FloatRange(listing_Standard.GetRect(20f), SettingsCategory().GetHashCode(), ref Settings.DurationRange,
+        Widgets.FloatRange(listing_Standard.GetRect(30f), SettingsCategory().GetHashCode(), ref Settings.DurationRange,
             0, AllMemoriesFade.MaxDuration);
         var currentThougths = AllMemoriesFade.GetCurrentAffectedThoughts();
         var lowThoughts = string.Join("\n", currentThougths.Where(def =>
