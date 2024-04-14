@@ -1,5 +1,8 @@
 # Changelog for AllMemoriesFade
 
+1.5.1 - Added Russian translation, thanks to LeonusDH
+
+
 1.5.0 - Mod updated for 1.5 and passed autotests
 Used DeepL to update translations for ChineseSimplified, French, German
 
