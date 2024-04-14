@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <AMF.MoodOffset>Изменение интенсивности временных мыслей: {0}</AMF.MoodOffset>
+  <AMF.MoodOffset.Tooltip>Заданное значение изменит интенсивность влияния временных мыслей (воспоминаний) на настроение.</AMF.MoodOffset.Tooltip>
+  <AMF.LengthOffset>Изменение длительности временных мыслей: {0}</AMF.LengthOffset>
+  <AMF.LengthOffset.Tooltip>Заданное значение изменит длительность временных мыслей (воспоминаний).</AMF.LengthOffset.Tooltip>
+  <AMF.DurationExclusion>Задействовать для мыслей с продолжительностью [в днях]:</AMF.DurationExclusion>
+  <AMF.DurationExclusion.Tooltip>Будет применяться только к мыслям, продолжительность которых находится в пределах выбранного диапазона.</AMF.DurationExclusion.Tooltip>
+  <AMF.IncludesThoughts>Влияет на {0_numCase ? мысль : мысли : мыслей}</AMF.IncludesThoughts>
+  <AMF.Reset>Сбросить изменения</AMF.Reset>
+  <AMF.CurrentModVersion>Установлена версия мода: {0}</AMF.CurrentModVersion>
+  <AMF.Example>Примеры
+Ел(а) на земле: {0}
+Оптимизм поселенца: {1}
+Развод: {2}
+Медовый месяц: {3}
+Убил(а) мою мать: {4}</AMF.Example>
+</LanguageData>
