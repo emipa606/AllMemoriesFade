@@ -7,7 +7,7 @@ namespace AllMemoriesFade;
 /// </summary>
 internal class AllMemoriesFadeSettings : ModSettings
 {
-    public FloatRange DurationRange = new FloatRange(0, float.MaxValue);
+    public FloatRange DurationRange = new(0, float.MaxValue);
     public float MemoryLengthOffset = 1f;
     public float MemoryMoodOffset = 1f;
 

@@ -13,7 +13,7 @@ internal class AllMemoriesFadeMod : Mod
     /// <summary>
     ///     The instance of the settings to be read by the mod
     /// </summary>
-    public static AllMemoriesFadeMod instance;
+    public static AllMemoriesFadeMod Instance;
 
     private static string currentVersion;
 
@@ -28,7 +28,7 @@ internal class AllMemoriesFadeMod : Mod
     /// <param name="content"></param>
     public AllMemoriesFadeMod(ModContentPack content) : base(content)
     {
-        instance = this;
+        Instance = this;
         currentVersion =
             VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
@@ -40,10 +40,7 @@ internal class AllMemoriesFadeMod : Mod
     {
         get
         {
-            if (settings == null)
-            {
-                settings = GetSettings<AllMemoriesFadeSettings>();
-            }
+            settings ??= GetSettings<AllMemoriesFadeSettings>();
 
             return settings;
         }
@@ -66,33 +63,33 @@ internal class AllMemoriesFadeMod : Mod
     /// <param name="rect"></param>
     public override void DoSettingsWindowContents(Rect rect)
     {
-        var listing_Standard = new Listing_Standard();
-        listing_Standard.Begin(rect);
-        listing_Standard.Gap();
-        listing_Standard.Label("AMF.MoodOffset".Translate(Settings.MemoryMoodOffset.ToStringPercent()), -1,
+        var listingStandard = new Listing_Standard();
+        listingStandard.Begin(rect);
+        listingStandard.Gap();
+        listingStandard.Label("AMF.MoodOffset".Translate(Settings.MemoryMoodOffset.ToStringPercent()), -1,
             "AMF.MoodOffset.Tooltip".Translate());
-        Settings.MemoryMoodOffset = listing_Standard.Slider(Settings.MemoryMoodOffset, 0f, 2f);
-        listing_Standard.Label("AMF.Example".Translate(Math.Round(-3f * Settings.MemoryMoodOffset),
+        Settings.MemoryMoodOffset = listingStandard.Slider(Settings.MemoryMoodOffset, 0f, 2f);
+        listingStandard.Label("AMF.Example".Translate(Math.Round(-3f * Settings.MemoryMoodOffset),
             Math.Round(10 * Settings.MemoryMoodOffset), Math.Round(-20f * Settings.MemoryMoodOffset),
             Math.Round(40f * Settings.MemoryMoodOffset), Math.Round(-80f * Settings.MemoryMoodOffset)));
 
-        listing_Standard.Gap();
+        listingStandard.Gap();
         var originalLength = Settings.MemoryLengthOffset;
-        listing_Standard.Label("AMF.LengthOffset".Translate(Settings.MemoryLengthOffset.ToStringPercent()), -1,
+        listingStandard.Label("AMF.LengthOffset".Translate(Settings.MemoryLengthOffset.ToStringPercent()), -1,
             "AMF.LengthOffset.Tooltip".Translate());
-        Settings.MemoryLengthOffset = listing_Standard.Slider(Settings.MemoryLengthOffset, 0f, 2f);
-        listing_Standard.Label("AMF.Example".Translate(GetTimeFromLength(1f), GetTimeFromLength(8f),
-            GetTimeFromLength(180f), GetTimeFromLength(30f), GetTimeFromLength(120f)));
+        Settings.MemoryLengthOffset = listingStandard.Slider(Settings.MemoryLengthOffset, 0f, 2f);
+        listingStandard.Label("AMF.Example".Translate(getTimeFromLength(1f), getTimeFromLength(8f),
+            getTimeFromLength(180f), getTimeFromLength(30f), getTimeFromLength(120f)));
         if (Settings.MemoryLengthOffset != originalLength)
         {
             AllMemoriesFade.UpdateLengthValues();
         }
 
-        listing_Standard.Gap();
+        listingStandard.Gap();
 
-        listing_Standard.Label("AMF.DurationExclusion".Translate(), -1,
+        listingStandard.Label("AMF.DurationExclusion".Translate(), -1,
             "AMF.DurationExclusion.Tooltip".Translate());
-        Widgets.FloatRange(listing_Standard.GetRect(30f), SettingsCategory().GetHashCode(), ref Settings.DurationRange,
+        Widgets.FloatRange(listingStandard.GetRect(30f), SettingsCategory().GetHashCode(), ref Settings.DurationRange,
             0, AllMemoriesFade.MaxDuration);
         var currentThougths = AllMemoriesFade.GetCurrentAffectedThoughts();
         var lowThoughts = string.Join("\n", currentThougths.Where(def =>
@@ -102,27 +99,27 @@ internal class AllMemoriesFadeMod : Mod
                 def.durationDays == currentThougths.Max(thoughtDef => thoughtDef.durationDays))
             .Select(def => $"{def.defName}: {def.DurationTicks.ToStringTicksToDays()}"));
 
-        listing_Standard.Label("AMF.IncludesThoughts".Translate(currentThougths.Count), -1f,
+        listingStandard.Label("AMF.IncludesThoughts".Translate(currentThougths.Count), -1f,
             $"{lowThoughts}\n...\n{highThoughts}");
-        listing_Standard.Gap();
-        if (listing_Standard.ButtonText("AMF.Reset".Translate()))
+        listingStandard.Gap();
+        if (listingStandard.ButtonText("AMF.Reset".Translate()))
         {
             settings.ResetSettings();
         }
 
-        listing_Standard.Gap();
+        listingStandard.Gap();
         if (currentVersion != null)
         {
-            listing_Standard.Gap();
+            listingStandard.Gap();
             GUI.contentColor = Color.gray;
-            listing_Standard.Label("AMF.CurrentModVersion".Translate(currentVersion));
+            listingStandard.Label("AMF.CurrentModVersion".Translate(currentVersion));
             GUI.contentColor = Color.white;
         }
 
-        listing_Standard.End();
+        listingStandard.End();
     }
 
-    private string GetTimeFromLength(float timeInDays)
+    private string getTimeFromLength(float timeInDays)
     {
         return ((int)Math.Round(Settings.MemoryLengthOffset * timeInDays * GenDate.TicksPerDay))
             .ToStringTicksToPeriod();

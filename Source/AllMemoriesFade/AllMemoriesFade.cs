@@ -8,25 +8,25 @@ namespace AllMemoriesFade;
 [StaticConstructorOnStartup]
 public class AllMemoriesFade
 {
-    public static readonly Dictionary<string, List<float>> VanillaMoodValues;
-    public static readonly Dictionary<string, float> VanillaLengthValues;
-    public static readonly Dictionary<string, bool> VanillaLerpValues;
-    public static readonly List<ThoughtDef> AllMoodThoughts;
+    private static readonly Dictionary<string, List<float>> vanillaMoodValues;
+    private static readonly Dictionary<string, float> vanillaLengthValues;
+    private static readonly Dictionary<string, bool> vanillaLerpValues;
+    private static readonly List<ThoughtDef> allMoodThoughts;
     public static float MaxDuration;
 
     static AllMemoriesFade()
     {
-        AllMoodThoughts = DefDatabase<ThoughtDef>.AllDefs.Where(def => def.durationDays > 0.1f).ToList();
-        MaxDuration = AllMoodThoughts.Max(def => def.durationDays) * 1.1f;
+        allMoodThoughts = DefDatabase<ThoughtDef>.AllDefs.Where(def => def.durationDays > 0.1f).ToList();
+        MaxDuration = allMoodThoughts.Max(def => def.durationDays) * 1.1f;
 
-        VanillaMoodValues = new Dictionary<string, List<float>>();
-        VanillaLerpValues = new Dictionary<string, bool>();
-        VanillaLengthValues = new Dictionary<string, float>();
-        foreach (var thoughtDef in AllMoodThoughts)
+        vanillaMoodValues = new Dictionary<string, List<float>>();
+        vanillaLerpValues = new Dictionary<string, bool>();
+        vanillaLengthValues = new Dictionary<string, float>();
+        foreach (var thoughtDef in allMoodThoughts)
         {
-            VanillaLerpValues[thoughtDef.defName] = thoughtDef.lerpMoodToZero;
-            VanillaLengthValues[thoughtDef.defName] = thoughtDef.durationDays;
-            VanillaMoodValues[thoughtDef.defName] = new List<float>();
+            vanillaLerpValues[thoughtDef.defName] = thoughtDef.lerpMoodToZero;
+            vanillaLengthValues[thoughtDef.defName] = thoughtDef.durationDays;
+            vanillaMoodValues[thoughtDef.defName] = new List<float>();
             if (thoughtDef.stages == null || thoughtDef.stages.Count == 0)
             {
                 continue;
@@ -36,11 +36,11 @@ public class AllMemoriesFade
             {
                 if (thoughtStage == null)
                 {
-                    VanillaMoodValues[thoughtDef.defName].Add(-1f);
+                    vanillaMoodValues[thoughtDef.defName].Add(-1f);
                     continue;
                 }
 
-                VanillaMoodValues[thoughtDef.defName].Add(thoughtStage.baseMoodEffect);
+                vanillaMoodValues[thoughtDef.defName].Add(thoughtStage.baseMoodEffect);
             }
         }
 
@@ -52,7 +52,7 @@ public class AllMemoriesFade
     public static void UpdateLerpValues()
     {
         var currentAffectedThoughts = GetCurrentAffectedThoughts();
-        foreach (var thoughtDef in AllMoodThoughts)
+        foreach (var thoughtDef in allMoodThoughts)
         {
             if (currentAffectedThoughts.Contains(thoughtDef))
             {
@@ -60,70 +60,70 @@ public class AllMemoriesFade
                 continue;
             }
 
-            thoughtDef.lerpMoodToZero = VanillaLerpValues[thoughtDef.defName];
+            thoughtDef.lerpMoodToZero = vanillaLerpValues[thoughtDef.defName];
         }
     }
 
     public static void UpdateLengthValues()
     {
         var currentAffectedThoughts = GetCurrentAffectedThoughts();
-        if (AllMemoriesFadeMod.instance.Settings.MemoryLengthOffset != 1f)
+        if (AllMemoriesFadeMod.Instance.Settings.MemoryLengthOffset != 1f)
         {
             Log.Message(
-                $"[AllMemoriesFade]: Changed {currentAffectedThoughts.Count} length-offsets by {AllMemoriesFadeMod.instance.Settings.MemoryLengthOffset.ToStringPercent()}");
+                $"[AllMemoriesFade]: Changed {currentAffectedThoughts.Count} length-offsets by {AllMemoriesFadeMod.Instance.Settings.MemoryLengthOffset.ToStringPercent()}");
         }
 
-        foreach (var thoughtDef in AllMoodThoughts)
+        foreach (var thoughtDef in allMoodThoughts)
         {
             if (currentAffectedThoughts.Contains(thoughtDef))
             {
-                thoughtDef.durationDays = VanillaLengthValues[thoughtDef.defName] *
-                                          AllMemoriesFadeMod.instance.Settings.MemoryLengthOffset;
+                thoughtDef.durationDays = vanillaLengthValues[thoughtDef.defName] *
+                                          AllMemoriesFadeMod.Instance.Settings.MemoryLengthOffset;
                 continue;
             }
 
-            thoughtDef.durationDays = VanillaLengthValues[thoughtDef.defName];
+            thoughtDef.durationDays = vanillaLengthValues[thoughtDef.defName];
         }
 
-        MaxDuration = AllMoodThoughts.Max(def => def.durationDays) * 1.1f;
+        MaxDuration = allMoodThoughts.Max(def => def.durationDays) * 1.1f;
     }
 
     public static void UpdateEffectValues()
     {
         var currentAffectedThoughts = GetCurrentAffectedThoughts();
-        if (AllMemoriesFadeMod.instance.Settings.MemoryMoodOffset != 1f)
+        if (AllMemoriesFadeMod.Instance.Settings.MemoryMoodOffset != 1f)
         {
             Log.Message(
-                $"[AllMemoriesFade]: Changed {currentAffectedThoughts.Count} mood-offsets by {AllMemoriesFadeMod.instance.Settings.MemoryMoodOffset.ToStringPercent()}");
+                $"[AllMemoriesFade]: Changed {currentAffectedThoughts.Count} mood-offsets by {AllMemoriesFadeMod.Instance.Settings.MemoryMoodOffset.ToStringPercent()}");
         }
 
-        foreach (var moodThought in AllMoodThoughts)
+        foreach (var moodThought in allMoodThoughts)
         {
             var customValue = currentAffectedThoughts.Contains(moodThought);
             for (var i = 0; i < moodThought.stages.Count; i++)
             {
-                if (VanillaMoodValues[moodThought.defName][i] == -1f)
+                if (vanillaMoodValues[moodThought.defName][i] == -1f)
                 {
                     continue;
                 }
 
                 if (customValue)
                 {
-                    moodThought.stages[i].baseMoodEffect = VanillaMoodValues[moodThought.defName][i] *
-                                                           AllMemoriesFadeMod.instance.Settings.MemoryMoodOffset;
+                    moodThought.stages[i].baseMoodEffect = vanillaMoodValues[moodThought.defName][i] *
+                                                           AllMemoriesFadeMod.Instance.Settings.MemoryMoodOffset;
                     continue;
                 }
 
-                moodThought.stages[i].baseMoodEffect = VanillaMoodValues[moodThought.defName][i];
+                moodThought.stages[i].baseMoodEffect = vanillaMoodValues[moodThought.defName][i];
             }
         }
     }
 
     public static List<ThoughtDef> GetCurrentAffectedThoughts()
     {
-        return AllMoodThoughts.Where(def =>
-                def.durationDays >= AllMemoriesFadeMod.instance.Settings.DurationRange.min &&
-                def.durationDays <= AllMemoriesFadeMod.instance.Settings.DurationRange.max)
+        return allMoodThoughts.Where(def =>
+                def.durationDays >= AllMemoriesFadeMod.Instance.Settings.DurationRange.min &&
+                def.durationDays <= AllMemoriesFadeMod.Instance.Settings.DurationRange.max)
             .OrderBy(def => def.durationDays)
             .ToList();
     }

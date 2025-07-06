@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <AMF.MoodOffset>Изменение интенсивности временных мыслей: {0}</AMF.MoodOffset>
   <AMF.MoodOffset.Tooltip>Заданное значение изменит интенсивность влияния временных мыслей (воспоминаний) на настроение.</AMF.MoodOffset.Tooltip>

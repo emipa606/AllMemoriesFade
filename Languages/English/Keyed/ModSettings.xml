@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
   <AMF.MoodOffset>Mood offset for timed thoughts: {0}</AMF.MoodOffset>
   <AMF.MoodOffset.Tooltip>Will multiply any mood from timed thoughts with the defined value.</AMF.MoodOffset.Tooltip>

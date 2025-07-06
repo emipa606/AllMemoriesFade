@@ -2,5 +2,18 @@
   "Continued": false,
   "CanAdd": "0",
   "CanRemove": "0",
-  "PreviewVersion": "1.5"
+  "PreviewVersion": "1.6",
+  "Patches": false,
+  "Defs": false,
+  "Assemblies": true,
+  "LinesOfCode": 13130,
+  "LinesOfXML": 0,
+  "CodeBaseSize": 66,
+  "LastXmlCleaning": "2025-07-06T19:44:40.2803911+02:00",
+  "SocialImageSet": true,
+  "FundingSet": true,
+  "SearchTags": [
+    " mood values",
+    " mental health"
+  ]
 }
