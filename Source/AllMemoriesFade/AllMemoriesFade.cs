@@ -6,7 +6,7 @@ using Verse;
 namespace AllMemoriesFade;
 
 [StaticConstructorOnStartup]
-public class AllMemoriesFade
+public static class AllMemoriesFade
 {
     private static readonly Dictionary<string, List<float>> vanillaMoodValues;
     private static readonly Dictionary<string, float> vanillaLengthValues;
@@ -26,7 +26,7 @@ public class AllMemoriesFade
         {
             vanillaLerpValues[thoughtDef.defName] = thoughtDef.lerpMoodToZero;
             vanillaLengthValues[thoughtDef.defName] = thoughtDef.durationDays;
-            vanillaMoodValues[thoughtDef.defName] = new List<float>();
+            vanillaMoodValues[thoughtDef.defName] = [];
             if (thoughtDef.stages == null || thoughtDef.stages.Count == 0)
             {
                 continue;
